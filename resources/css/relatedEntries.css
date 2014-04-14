@@ -1,0 +1,55 @@
+.pagination {
+	margin      : 15px 0 0 0;
+	font-size   : 12px;
+	line-height : 12px;
+	font-size   : 0.75rem;
+	line-height : 0.75rem;
+	color       : #333333;
+}
+
+.pagination span {
+	display        : inline-block;
+	vertical-align : top;
+	padding        : 5px 10px 0 0;
+}
+
+.pagination-clean {
+	display        : inline-block;
+	vertical-align : top;
+	list-style     : none;
+	margin         : 0;
+	padding        : 0;
+}
+
+.pagination-clean li {
+	display        : inline-block;
+	vertical-align : top;
+	margin         : 0 3px 0 0;
+}
+
+.pagination-clean li.active, .pagination-clean li.off {
+	padding : 4px 6px;
+	border  : 1px solid #EEE;
+}
+
+.pagination-clean li.off {
+	color : #CCC;
+}
+
+.pagination-clean a {
+	display         : block;
+	padding         : 4px 6px;
+	border          : 1px solid #CCC;
+	border-radius   : 3px;
+	text-decoration : none;
+	color           : #333333;
+}
+
+.pagination-clean a.active {
+	font-weight  : bold;
+	border-color : #333333;
+}
+
+.pagination-clean a:hover {
+	border-color : #5f4d42;
+}

@@ -1,0 +1,43 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.selectField({
+    name:       "relatedSection",
+    label:      "Related section" | t,
+    value:      settings.relatedSection,
+    options:    sections
+}) }}
+
+<div class="paginationField">
+    {{ forms.checkboxField({
+        id:         "usePagination",
+        name:       "usePagination",
+        label:      "Pagination" | t,
+        checked:    settings.usePagination
+    }) }}
+</div>
+
+<div class="entries-per-page field{% if not settings.usePagination %} hidden{% endif %}">
+    {{ forms.selectField({
+        name:       "entriesPerPage",
+        label:      "Entries per page" | t,
+        value:      settings.entriesPerPage,
+        options:    range(0, 100, 1)
+    }) }}
+</div>
+
+<script>
+	window.onload = function() {
+        var $checkbox = $('.paginationField :checkbox'),
+            $entriesPerPage = $('.entries-per-page');
+
+        $checkbox.change(function() {
+            if( this.checked ) {
+                $entriesPerPage.removeClass('hidden')
+            }
+            else {
+                $entriesPerPage.addClass('hidden');
+                $entriesPerPage.find('select').val('0');
+            }
+        });
+    };
+</script>

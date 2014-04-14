@@ -1,0 +1,48 @@
+{% set entryId = craft.request.lastSegment %}
+{% set relatedSectionHandle = craft.sections.getSectionById(settings.relatedSection).handle %}
+
+<div class="relatedEntries">
+    <div class="spinner hidden"></div>
+    <div class="loadedEntries"></div>
+
+    {% if settings.usePagination and settings.entriesPerPage > 0 %}
+    	{% set totalRelated = craft.entries.sectionId(settings.relatedSection).relatedTo(entryId).total() %}
+
+    	{% if totalRelated > settings.entriesPerPage %}
+    		{% set numPages = ceil(totalRelated / settings.entriesPerPage) %}
+
+    		{% for i in 1..numPages %}
+                {% if loop.first %}
+                <div class="pagination cf">
+                    <span>{{ "Page" | t }}:</span>
+                    <ul class="pagination-clean">
+                {% endif %}
+
+    			<li><a href="#" data-page="{{ i - 1 }}">{{ i }}</a></li>
+
+                {% if loop.last %}
+                    </ul>
+                </div>
+                {% endif %}
+    		{% endfor %}
+    	{% endif %}
+    {% endif %}
+</div>
+
+<script>
+	window.onload = function() {
+        var pagesToRedirectFrom = [
+            "{{ url('entries') ~ '/' ~ relatedSectionHandle }}",
+            "{{ url('entries') ~ '/' ~ relatedSectionHandle ~ '/new' }}"
+        ];
+
+        new Craft.LoadRelatedEntries({
+            container: '.relatedEntries',
+            resultsContainer: '.loadedEntries',
+            section: {{ settings.relatedSection }},
+            relatedEntryId: {{ entryId }},
+            limit: {{ settings.entriesPerPage > 0 ? settings.entriesPerPage : 0 }},
+            pagesToRedirectFrom: pagesToRedirectFrom
+        });
+    };
+</script>

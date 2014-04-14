@@ -1,0 +1,25 @@
+{% set entries = craft.entries.sectionId(section).relatedTo(relatedEntryId).limit(limit).offset(offset) %}
+
+{% if entries | length > 0 %}
+    <div class="tableview">
+        <table class="data fullwidth">
+            <thead>
+                <tr>
+                    <th>{{ "Title" | t }}</th>
+                    <th>{{ "Post Date" | t }}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for entry in entries %}
+                <tr>
+                    <td><a class="edit-entry" href="{{ entry.cpEditUrl }}" title="{{ "Edit" | t }}">{{ entry.title }}</a></td>
+                    <td>{{ entry.postDate }}</td>
+                    <td class="thin">
+                        <a class="delete icon delete-entry" data-entry-id="{{ entry.id }}" title="{{ "Delete" | t }}"></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
